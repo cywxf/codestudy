@@ -1,4 +1,4 @@
-bugfree-octo-dangerzone
+Git study
 =======================
 
 test repository for study
