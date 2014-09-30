@@ -7,5 +7,5 @@ int main(){
 print();
 }
 
-I mad
-and finished
+I mad and not good
+
