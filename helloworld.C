@@ -5,5 +5,4 @@ printf("Hello World!");
 
 int main(){
 print();
-end()
 }
