@@ -7,5 +7,3 @@ int main(){
 print();
 }
 
-I mad and not bad
-
