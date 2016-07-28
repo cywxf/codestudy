@@ -1,9 +1,10 @@
   Size      File count            Filename
 ----------  ----------  ------------------------------
- 538.243M         1849  /cms/store/user/qixu/EffAna/
-   3.666G           27  /cms/store/user/qixu/Glauber/
- 212.632M           49  /cms/store/user/qixu/PAHighPt/
- 254.042K           28  /cms/store/user/qixu/dNchdeta/
-   1.657T       102389  /cms/store/user/qixu/flow/
+ 710.159K            5  /cms/store/user/qixu/flow/PACorrHM/LYZfirsttest/
+ 228.914G          761  /cms/store/user/qixu/flow/PACorrHM/PP2010MBData/
+   1.704M           12  /cms/store/user/qixu/flow/PACorrHM/multitest/
+   1.350T        12091  /cms/store/user/qixu/flow/PACorrHM/skim/
+  13.342M          462  /cms/store/user/qixu/flow/PACorrHM/tracklcpt01to10/
+ 501.509M         7853  /cms/store/user/qixu/flow/PACorrHM/tracknormcpt03to6/
 ----------  ----------  ------------------------------
-   1.662T       104342  TOTAL
+   1.580T        21184  TOTAL

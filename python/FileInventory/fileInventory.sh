@@ -3,9 +3,9 @@
 # Setup environment and working dir, initialize state
 #PATH="/usr/local/bin:$PATH"
 FI_HOME=/home/xuq7/codestudy/python/FileInventory
-INS_DIR1=/home/xuq7/codestudy
-INS_DIR2=/cms/store/user/qixu
-INS_DIR3=/scratch/xuq7/Data
+INS_DIR1=/cms/store/user/qixu/flow/PACorrHM/skim
+INS_DIR2=/cms/store/user/qixu/flow/PACorrHM
+INS_DIR3=/cms/store/user/qixu/
 cd $FI_HOME
 eval `/usr/local/bin/config_pkg -sh -a lio`
 if [ -f $FI_HOME/fileInventory.state ]; then 
