@@ -3,6 +3,8 @@ import itchat, time
 
 itchat.auto_login(enableCmdQR=2, hotReload=True)
 wish = 'Good afternoon %s'
+itchat.get_chatrooms(update=True)
+
 def get_allmembers(chatroomName=''):
     #chatroomName = 'wishgroup'
     chatroom = itchat.search_chatrooms(name=chatroomName)
