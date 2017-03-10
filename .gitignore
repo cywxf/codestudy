@@ -5,3 +5,5 @@ python/style-transfer/outputs/*
 python/style-transfer/test/*
 *.DS_Store
 *.pkl
+*.csv
+*.json
