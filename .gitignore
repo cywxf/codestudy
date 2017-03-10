@@ -4,3 +4,4 @@ python/style-transfer/outputs/*
 !python/style-transfer/outputs/.gitkeeper
 python/style-transfer/test/*
 *.DS_Store
+*.pkl
