@@ -60,7 +60,8 @@ def main():
     #chatroom=get_chatroom('USTC-AAGNY-Summit')
     #chatroom=get_chatroom(u'石溪租房群#2')
     #chatroom=get_chatroom(u'琪石2017高级会员群')
-    chatroom = get_chatroom(u'2017 USTC春节聚会')
+    #chatroom = get_chatroom(u'2017 USTC春节聚会')
+    chatroom = get_chatroom(u'3月4号LICAA义工答谢会')
     if chatroom is None:
         pass
     else:
