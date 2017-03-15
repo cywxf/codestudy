@@ -4,14 +4,6 @@ from itchat.content import *
 from prettytable import PrettyTable
 
 msg_list = []
-def printlist(msg_list):
-    table = PrettyTable()
-
-    for msg in msg_list:
-        for key,val in sorted(msg.iteritems()):
-          table.add_column(key, sorted(val))
-
-        print table
 
 def ClearTimeOutMsg():
     for msg in msg_list:
@@ -20,8 +12,8 @@ def ClearTimeOutMsg():
                     or msg.get('msg_type') == 'Recording' \
                     or msg.get('msg_type') == 'Video' \
                     or msg.get('msg_type') == 'Attachment':
-                print(u'要删除的文件：',msg.get('msg_content'))
-                os.remove(item['msg_content'])
+                print(u'要删除的文件: ',msg.get('msg_content'))
+                os.remove(msg['msg_content'])
             msg_list.remove(msg)
 
 @itchat.msg_register([TEXT, PICTURE, MAP, CARD, SHARING, RECORDING, ATTACHMENT, VIDEO, FRIENDS], isGroupChat = False)
@@ -62,7 +54,7 @@ def Revocation(msg):
     msg_dict = {'msg_id': msg_id, 'msg_type': msg_type, 'msg_from': msg_from, 'msg_time': msg_time, 'msg_time_touser': msg_time_touser, 'msg_content': msg_content, 'msg_url': msg_url}
     msg_list.append(msg_dict)
     print 'msg_list saved is: '
-    printlist(msg_list)
+    print(msg_list)
     ClearTimeOutMsg()
 
 @itchat.msg_register([TEXT, PICTURE, MAP, CARD, SHARING, RECORDING, ATTACHMENT, VIDEO, FRIENDS], isGroupChat = True)
@@ -77,7 +69,9 @@ def Revocation(msg):
     print("msg_time_touser = %s" % msg_time_touser)
     msg_id = msg['MsgId']
     msg_time = msg['CreateTime']
-    msg_chatfrom = itchat.search_chatrooms(userName=msg['FromUserName']).get('NickName')
+    chatroom = itchat.search_chatrooms(userName=msg['FromUserName'])
+    msg_chatfrom = None
+    if chatroom: msg_chatfrom = chatroom.get('NickName')
     msg_from = msg['ActualNickName']
     msg_type = msg['Type']
     msg_content = None
@@ -104,7 +98,7 @@ def Revocation(msg):
     msg_dict = {'msg_id': msg_id, 'msg_type': msg_type, 'msg_chatfrom': msg_chatfrom, 'msg_from': msg_from, 'msg_time': msg_time, 'msg_time_touser': msg_time_touser, 'msg_content': msg_content, 'msg_url': msg_url}
     msg_list.append(msg_dict)
     print 'msg_list saved is '
-    printlist(msg_list)
+    print(msg_list)
     ClearTimeOutMsg()
 
 @itchat.msg_register(NOTE, isGroupChat = True)
@@ -136,7 +130,7 @@ def SaveMsg(msg):
 
             msg_list.remove(old_msg)
             print 'msg_list saved is '
-            printlist(msg_list)
+            print(msg_list)
         ClearTimeOutMsg()
 
 @itchat.msg_register(NOTE, isGroupChat = False)
@@ -167,9 +161,9 @@ def SaveMsg(msg):
 
             msg_list.remove(old_msg)
             print 'msg_list saved is '
-            printlist(msg_list)
+            print(msg_list)
         ClearTimeOutMsg()
 
 if __name__ == '__main__':
-    itchat.auto_login(hotReload=False, enableCmdQR=2)
+    itchat.auto_login(hotReload=True, enableCmdQR=2)
     itchat.run()

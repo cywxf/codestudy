@@ -1,12 +1,12 @@
 #coding=utf-8
 import itchat, time, random
-itchat.auto_login(enableCmdQR=2, hotReload=True)
 def get_chatroom(chatroomUserName = '1234567'):
-    itchat.get_chatrooms(update=True)
+#    itchat.get_chatrooms(update=True)
     chatrooms = itchat.search_chatrooms(chatroomUserName);
     if chatrooms:
         return chatrooms[0]
     else:
+        print "Cannot find the chatroom: ", chatroomUserName
         return None
 
 def get_newusers(chatroom):
@@ -26,6 +26,8 @@ def add_users(chatroom):
     newusers = get_newusers(chatroom)
     if 'USTC' in chatroom['NickName']:
         VerifyContent = 'Hi, I am Qiao Xu 0804 from %s' % chatroom['NickName']
+    elif u'求职' in chatroom['NickName']:
+        VerifyContent = 'Hi, I am Qiao Xu 0804 from %s, My LinkedIn address is: https://www.linkedin.com/in/qiao--xu' % chatroom['NickName']
     else:
         VerifyContent = 'Hi, I am Qiao Xu from %s' % chatroom['NickName']
     random.shuffle(newusers) #random shuffle elements
@@ -61,10 +63,10 @@ def main():
     #chatroom=get_chatroom(u'石溪租房群#2')
     #chatroom=get_chatroom(u'琪石2017高级会员群')
     #chatroom = get_chatroom(u'2017 USTC春节聚会')
-    chatroom = get_chatroom(u'3月4号LICAA义工答谢会')
-    if chatroom is None:
-        pass
-    else:
+    #chatroom = get_chatroom(u'3月4号LICAA义工答谢会')
+    #chatroom = get_chatroom(u'长岛科大人')
+    chatroom = get_chatroom(u'科大纽约校友求职内推群')
+    if not chatroom is None:
         print(chatroom['NickName'] + ', Total %s members' % len(chatroom['MemberList']))
         print('adding %d new users' % add_users(chatroom))
 
@@ -73,4 +75,5 @@ def main():
     #    print('adding %d new users' % add_users(chatroom))
 
 if __name__ == "__main__":
+    itchat.auto_login(enableCmdQR=2, hotReload=True)
     main()
