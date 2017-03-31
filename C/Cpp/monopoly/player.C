@@ -63,7 +63,7 @@ void player::payrent(chess_land *cl){
     if(state < 0) return;
     int hr = houserent[state];
     if(type == 1){
-        hr = houserent[nrr-1];
+        hr = houserent[p->get_nrr()-1];
     }
     if(type == 2){
         hr = roll_dice() * 4;
