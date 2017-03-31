@@ -55,7 +55,7 @@ def analysis(filename):
 
 def main():
 #    chatroomUserName = 'USTC-AAGNY-Summit'
-    chatroomUserName = ''
+    chatroomUserName = 'ridge'
     filename = 'friendlist_%s.json' % chatroomUserName
     if not (os.path.isfile(filename) and os.stat(filename).st_size):
         friends = get_users(chatroomUserName)

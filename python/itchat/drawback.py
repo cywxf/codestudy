@@ -12,7 +12,7 @@ def ClearTimeOutMsg():
                     or msg.get('msg_type') == 'Recording' \
                     or msg.get('msg_type') == 'Video' \
                     or msg.get('msg_type') == 'Attachment':
-                print(u'要删除的文件: ',msg.get('msg_content'))
+                print u'要删除的文件: ',msg.get('msg_content')
                 os.remove(msg['msg_content'])
             msg_list.remove(msg)
 
@@ -131,7 +131,7 @@ def SaveMsg(msg):
             msg_list.remove(old_msg)
             print 'msg_list saved is '
             print(msg_list)
-        ClearTimeOutMsg()
+#        ClearTimeOutMsg()
 
 @itchat.msg_register(NOTE, isGroupChat = False)
 def SaveMsg(msg):
@@ -162,7 +162,7 @@ def SaveMsg(msg):
             msg_list.remove(old_msg)
             print 'msg_list saved is '
             print(msg_list)
-        ClearTimeOutMsg()
+#        ClearTimeOutMsg()
 
 if __name__ == '__main__':
     itchat.auto_login(hotReload=True, enableCmdQR=2)

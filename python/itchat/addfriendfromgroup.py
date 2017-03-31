@@ -24,7 +24,7 @@ def get_newusers(chatroom):
 
 def add_users(chatroom):
     newusers = get_newusers(chatroom)
-    if 'USTC' in chatroom['NickName']:
+    if 'USTC' or u'科大'in chatroom['NickName']:
         VerifyContent = 'Hi, I am Qiao Xu 0804 from %s' % chatroom['NickName']
     elif u'求职' in chatroom['NickName']:
         VerifyContent = 'Hi, I am Qiao Xu 0804 from %s, My LinkedIn address is: https://www.linkedin.com/in/qiao--xu' % chatroom['NickName']
@@ -65,7 +65,13 @@ def main():
     #chatroom = get_chatroom(u'2017 USTC春节聚会')
     #chatroom = get_chatroom(u'3月4号LICAA义工答谢会')
     #chatroom = get_chatroom(u'长岛科大人')
-    chatroom = get_chatroom(u'科大纽约校友求职内推群')
+    #chatroom = get_chatroom(u'科大纽约校友求职内推群')
+    #chatroom = get_chatroom(u'USTC-StonyBrook')
+    #chatroom = get_chatroom(u'春季求职Workshop')
+    #chatroom = get_chatroom(u'LICAA1群(谢绝商业宣传)')
+    #chatroom = get_chatroom(u'LICAA1\u7fa4(\u8c22\u7edd\u5546\u4e1a\u5ba3\u4f20)')
+    #chatroom = get_chatroom(u'独立谣一起躁狼嗨')
+    #chatroom = get_chatroom(u'\u72ec\u7acb\u8c23\u4e00\u8d77\u8e81\u6d6a\u55e83\u20e3\ufe0f')
     if not chatroom is None:
         print(chatroom['NickName'] + ', Total %s members' % len(chatroom['MemberList']))
         print('adding %d new users' % add_users(chatroom))
