@@ -2,16 +2,12 @@
 #include <string>
 #include "chesscell.h"
 #include "chessland.h"
+#include "chessboard.h"
 #include "player.h"
 
-void boardaction(std::vector<chess_land*> chesslands, player *p, int pos);
-chess_land* postoland(std::vector<chess_land*> chesslands, int pos);
-void action(std::vector<chess_land*> chesslands, player *p, int pos);
-void jail(std::vector<chess_land*> chesslands, player *p, int pos);
-
-int nplayer = 6;
-int IniMoney = 2000;
-int nCell = 40;
+const int IniPlayer = 4;
+const int IniMoney = 5000;
+const int nCell = 40;
 struct conflands{
     std::string s;
     int lp;
@@ -23,11 +19,11 @@ struct conflands{
 };
 
 //Setup for players
-std::string pnames[] = {"A","B","C","D","E","F","G","H","I","J"};
-float psafeper[] =  {0.9, 0.3, 1.0, 0.5, 0.95, 0.8, 0.2, 0.3, 0.1};
+const std::string pnames[] = {"A","B","C","D","E","F","G","H","I","J"};
+const float psafeper[] =  {0.9, 0.3, 1.0, 0.5, 0.95, 0.8, 0.2, 0.3, 0.1};
 
 //Setup for cells
-conflands alllands[] = {
+const conflands alllands[] = {
        {"MEDITERRRANEAN AVENUE", 60, 50, {2, 10, 30, 90, 160, 250}, 0, 30, 1},
        {"BALTIC AVENUE", 60, 50, {4, 20, 60, 180, 320, 450}, 0, 30, 3},
        {"Oriental AVENUE", 100, 50, {6, 30, 90, 270, 400, 550}, 1, 50, 6},
@@ -52,97 +48,19 @@ conflands alllands[] = {
        {"BOARDWAY", 400, 200, {50, 200, 600, 1400, 1700, 2000}, 7, 200, 39}
 };
 
-conflands allrr[] = {
+const conflands allrr[] = {
        {"PENNSYLVANIA RAILROAD", 200, 0, {25, 50, 100, 200}, -1, 100, 5},
        {"B & O RAILROAD", 200, 0, {25, 50, 100, 200}, -1, 100, 15},
        {"SHORT LINE", 200, 0, {25, 50, 100, 200}, -1, 100, 25},
        {"READING RAILROAD", 200, 0, {25, 50, 100, 200}, -1, 100, 35}
 };
 
-conflands allut[] = {
+const conflands allut[] = {
        {"ELECTRIC COMPANY", 150, 0, {0}, -1, 75, 12},
        {"WATER WORKS", 150, 0, {0}, -1, 75, 28}
 };
 
-
-//Setup for Chest
-void Chest(player *p, int pos){
-    /*
-    money = money - 50;
-    money = money - 50;
-    money = money + 200;
-    money = money - nhouse * 40 - nhotel * 115;
-    m = m + 100;
-    m = m - 100;
-//jail free
-    m = m + 10;
-    pos = 30;
-    m = m + 100;
-    m = m + 100;
-    m = m + 10 * (nplayer - 1); //other - 10
-    m = m + 50;
-    m = m - 25;
-    m = m + 20;
-    pos = 0;
-    */
-    }
-
-//Setup for Quest
-void Quest(player *p, int pos){
-    int money = p->get_money();
-    /*
-    pos = 11;    if(pos > 11) m = m + 200;
-    p->set_money(money - nhouse * 25 - nhotel * 100);
-    pos = 30;
-    pos = 39;
-    pos -= 3; if(pos < 3) pos += 37;
-    pos = 0;
-    money = money + 50;
-    money = money - 15;
-    pos = 5; if(pos > 5) m = m + 200;
-    pos = (((pos + 5) / 10) + 1) * 5;
-    pos = (pos>=12 && pos<28)?28:12;
-//jail free
-    m = m - 50 * (nplayer - 1); //other + 50
-    pos = 24;    if(pos > 24) m = m + 200;
-    money = money + 150;
-    */
-    p->set_money(p->get_money() + 1);
-}
-//
-//
-//
-//
-//Setup for board
-//type: 0: Nothing, 1: Normal, 2:Chest, 3: Quest, 4: Jail
-//
-void directpay(player *p, int pos){
-    int money = p->get_money();
-    if(pos == 4) p->set_money(money - 200); 
-    if(pos == 38) p->set_money(money - 100); 
-    return;
-}
-
-void jail(std::vector<chess_land*> chesslands, player *p, int pos){
-    if(p->get_pos() != 30 && pos == 30 ){
-        p->set_injail(true);
-        p->set_pos(30);//jail case
-        return;
-    }
-    else if(p->get_pos() == 30 && pos == 10){
-        if(p->roll_dice()) boardaction(chesslands, p, pos+p->roll_dice());
-        p->set_pos(10);
-        p->set_injail(false);
-        return;
-    }
-}
-
-void action(std::vector<chess_land*> chesslands, player *p, int pos){
-    p->build(postoland(chesslands, pos));
-    p->payrent(postoland(chesslands, pos));
-}
-
-std::vector<chess_land*> prepare(conflands alllands[], int nlands, int type){
+std::vector<chess_land*> prepare(const conflands alllands[], const int nlands, const int type){
     std::vector<chess_land*> chesslands;
     for(int iland = 0; iland < nlands; iland ++){
         chess_land *tmp = new chess_land();
@@ -160,32 +78,32 @@ std::vector<chess_land*> prepare(conflands alllands[], int nlands, int type){
     return chesslands;
 }
 
-chess_land* postoland(std::vector<chess_land*> chesslands, int pos){
-    for(int iland = 0; iland < chesslands.size(); iland ++){
-        if(pos == chesslands[iland]->get_pos()) return chesslands[iland];
+chess_board* Initialize(){
+    int nlands = sizeof(alllands)/sizeof(alllands[0]);
+    std::vector<chess_land*> chesslands = prepare(alllands, nlands, 0);
+    int nrr = sizeof(allrr)/sizeof(allrr[0]);
+    std::vector<chess_land*> chessrr = prepare(allrr, nrr, 1);
+    int nut = sizeof(allut)/sizeof(allut[0]);
+    std::vector<chess_land*> chessut = prepare(allut, nut, 2);
+    chesslands.insert( chesslands.end(), chessrr.begin(), chessrr.end() );
+    chesslands.insert( chesslands.end(), chessut.begin(), chessut.end() );
+    
+    std::vector<player*> players;
+    for(int iplayer = 0;iplayer< IniPlayer; iplayer++){
+        player *p = new player();
+        p->set_name(pnames[iplayer]);
+        p->set_safeper(psafeper[iplayer]);
+        p->set_money(IniMoney);
+        p->set_pos(0);
+        p->set_jailstate(1);
+        p->set_nland(0);
+        p->set_nrr(0);
+        p->set_nmgg(0);
+        p->set_nhouse(0);
+        p->set_nhotel(0);
+        players.push_back(p);
     }
-    return NULL;
+    
+    chess_board* cb = new chess_board(players, chesslands, nCell);
+    return cb;
 }
-
-void Release(std::vector<chess_land*> chesslands, player *p){
-    for(int iland = 0; iland < chesslands.size(); iland ++){
-        if(chesslands[iland]->get_owned() == p){
-            chesslands[iland]->set_owned(NULL);
-            chesslands[iland]->set_state(-1);
-        }
-    }
-    return;
-}
-
-void boardaction(std::vector<chess_land*> chesslands, player *p, int pos){
-    if(p->get_injail()) pos = 10; 
-    if(p->get_pos()>=pos && !p->get_injail()) {std::cout<<"passing go"<<std::endl; p->set_money(p->get_money() + 200); }
-    if(pos == 0 || pos == 20);
-    else if(pos == 4 || pos == 38) directpay(p, pos);
-    else if(pos == 7 || pos == 22 || pos == 36) Quest(p, pos);
-    else if(pos == 2 || pos == 17 || pos == 33) Chest(p, pos);
-    else if(pos == 10 || pos == 30) jail(chesslands, p, pos);//jail case
-    else action(chesslands, p, pos);
-    p->set_pos(pos);
-}
-

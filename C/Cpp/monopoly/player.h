@@ -20,10 +20,10 @@ class player{
     int nrr;
     int nmgg;
     float safeper;
-    bool injail;
+    int jailstate; //jailstate:0 outjail:1, 2, ...
 
     public:
-    void set_injail(bool _injail){ injail = _injail;}
+    void set_jailstate(int _jailstate){ jailstate = _jailstate;}
     void set_name(std::string _name){ name= _name;}
     void set_money(int _money){ money = _money;}
     void set_pos(int _pos){ pos = _pos;}
@@ -34,7 +34,7 @@ class player{
     void set_nmgg(int _nmgg){ nmgg = _nmgg;}
     void set_safeper(float _safeper){ safeper = _safeper; }
 
-    bool get_injail(){ return injail;}
+    int get_jailstate(){ return jailstate;}
     std::string get_name(){ return name;}
     int get_money(){ return money;}
     int get_pos(){ return pos;}
@@ -47,7 +47,8 @@ class player{
 
     void build(chess_land *cl);
     void morgage(chess_land *cl);
-    void payrent(chess_land *cl);
+    void demorgage(chess_land *cl);
+    void payrent(std::vector<chess_land*> chesslands, chess_land *cl);
     int roll_dice();
 };
 
