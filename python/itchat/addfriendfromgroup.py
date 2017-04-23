@@ -68,7 +68,7 @@ def main():
     #chatroom = get_chatroom(u'科大纽约校友求职内推群')
     #chatroom = get_chatroom(u'USTC-StonyBrook')
     #chatroom = get_chatroom(u'春季求职Workshop')
-    #chatroom = get_chatroom(u'LICAA1群(谢绝商业宣传)')
+    chatroom = get_chatroom(u'LICAA1群(谢绝商业宣传)')
     #chatroom = get_chatroom(u'LICAA1\u7fa4(\u8c22\u7edd\u5546\u4e1a\u5ba3\u4f20)')
     #chatroom = get_chatroom(u'独立谣一起躁狼嗨')
     #chatroom = get_chatroom(u'\u72ec\u7acb\u8c23\u4e00\u8d77\u8e81\u6d6a\u55e83\u20e3\ufe0f')
