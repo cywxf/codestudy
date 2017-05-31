@@ -1,8 +1,0 @@
-1. Run python script to generate input from raw data:
-	python generate_data.py 20170418 goog_trade_2.txt
-   The output for this script is the selected time lag when generating trades for B Exchange.
-
-2. Compile and Run C++ program:
-	g++ EstTimeLag.cpp -o EstTimeLag -std=c++11
-	EstTimeLag 20170418
-    The output time lag should be the same as from the python script.

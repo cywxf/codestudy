@@ -77,9 +77,9 @@ Thumbs.db
 
 # Figures #
 # ####################
-#*.png
+*.png
 *.pdf
-#*.gif
+*.gif
 *.ps
 
 # Others #
